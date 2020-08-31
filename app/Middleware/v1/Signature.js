@@ -17,7 +17,7 @@ class Signature {
     const stringToVerify = `${method}:${serviceDetail.root}:${url}`;
 
     const signature = request.header('signature');
-    const signatureValid = await this.hashService.verify(stringToVerify, signature);
+    const signatureValid = this.hashService.verify(token.token, stringToVerify, signature);
 
     if (!signatureValid) {
       return response.status(400).json(this.errorService.getMap(this.errorService.INVALID_SIGNATURE));

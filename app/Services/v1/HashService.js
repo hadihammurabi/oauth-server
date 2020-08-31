@@ -1,15 +1,18 @@
+const crypto = require('crypto');
+
 class HmacService {
   constructor() {
-    this.hash = use('Hash');
-    this.algo = 'RSA-SHA256'
+    this.algo = 'RSA-SHA512'
+    this.keyPair = {};
   }
 
-  async create(stringToSign) {
-    return await this.hash.make(stringToSign);
+  create(key, stringToSign) {
+    return crypto.createHmac(this.algo, key).update(stringToSign).digest('hex');
   }
 
-  async verify(stringToVerify, hash) {
-    return await this.hash.verify(stringToVerify, hash);
+  verify(key, stringToVerify, hash) {
+    const result = this.create(key, stringToVerify);
+    return result === hash;
   }
 }
 

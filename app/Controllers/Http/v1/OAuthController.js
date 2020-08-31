@@ -41,8 +41,8 @@ class OAuthController {
     const serviceDetail = await this.services.findByName(service);
     const stringToSign = `${method}:${serviceDetail.root}:${url}`;
 
-    const hash = await this.hashService.create(stringToSign);
-    return this.responseService.success(hash);
+    const signature = this.hashService.create(token.token, stringToSign);
+    return this.responseService.success({ signature });
   }
 }
 
