@@ -6,4 +6,5 @@ Route.get('/', () => {
   return { greeting: 'Hello world in JSON' }
 })
 
-require('./v1');
+require('./routes/api-v1');
+require('./routes/manage');
